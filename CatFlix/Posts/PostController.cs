@@ -3,38 +3,25 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using System.Threading.Tasks;
 
 namespace CatFlix.Posts
 {
 	public class PostController : ApiController
     {
-		public HttpResponseMessage Get()
+		private PostRepository repository = new PostRepository();
+
+		public async Task<HttpResponseMessage> Get()
 		{
-			var posts = new List<Post>();
-
-			posts.Add(new Post
-			{
-				Username = "username",
-				AvatarUrl = "avatar",
-				Status = "Eating lunch",
-				CreatedAt = DateTime.Now,
-				ImageUrl = "sss"
-			});
-
-
-			posts.Add(new Post
-			{
-				Username = "username",
-				AvatarUrl = "avatar",
-				Status = "Eating lunch",
-				CreatedAt = DateTime.Now,
-				ImageUrl = "sss"
-			});
-
+			var posts = await repository.Get();
 			return Request.CreateResponse(HttpStatusCode.OK, posts);
 		}
-		public HttpResponseMessage Post(Post post)
+		public async Task<HttpResponseMessage> Post(Post post)
 		{
+			await repository.Create(post);
+
 			return Request.CreateResponse(HttpStatusCode.Created, post);
 		}
 
