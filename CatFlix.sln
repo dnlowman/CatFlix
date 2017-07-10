@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatFlix", "CatFlix\CatFlix.csproj", "{EDD54364-2BE8-4857-80CB-81306C86C166}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatFlix.Tests", "ClassLibrary1\CatFlix.Tests.csproj", "{8AD65BF6-4024-40BF-BA1A-5697F437EA84}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{EDD54364-2BE8-4857-80CB-81306C86C166}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDD54364-2BE8-4857-80CB-81306C86C166}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDD54364-2BE8-4857-80CB-81306C86C166}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AD65BF6-4024-40BF-BA1A-5697F437EA84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AD65BF6-4024-40BF-BA1A-5697F437EA84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AD65BF6-4024-40BF-BA1A-5697F437EA84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AD65BF6-4024-40BF-BA1A-5697F437EA84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
