@@ -1,6 +1,12 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-  background-color: red;
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.button-increment {
+    background-color: green;
+}
+
+.button-decrement {
+    background-color: red;
 }
