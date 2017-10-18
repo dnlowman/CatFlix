@@ -25,5 +25,13 @@ namespace CatFlix.Posts
 			return Request.CreateResponse(HttpStatusCode.Created, post);
 		}
 
-    }
+		[Route("api/Post/{objectId}")]
+		public async Task<HttpResponseMessage> Delete(string objectId)
+		{
+			await repository.Delete(objectId);
+
+			return Request.CreateResponse(HttpStatusCode.OK, objectId);
+		}
+
+	}
 }

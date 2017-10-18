@@ -1,9 +1,11 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Http;
 
 namespace CatFlix.Posts
 {
@@ -25,6 +27,16 @@ namespace CatFlix.Posts
 			var database = client.GetDatabase("CatFlix");
 			var collection = database.GetCollection<Post>("Post");
 			return await collection.Find(_ => true).ToListAsync();
+		}
+
+		public async Task<DeleteResult> Delete(string objectId)
+		{
+			var database = client.GetDatabase("CatFlix");
+			var collection = database.GetCollection<Post>("Post");
+
+			var filter = Builders<Post>.Filter.Eq("_id", ObjectId.Parse(objectId));
+
+			return collection.DeleteOne(filter);
 		}
 	}
 }
