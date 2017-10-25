@@ -6,9 +6,11 @@ using System.Web.Http;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Threading.Tasks;
+using System.Web.Http.Cors;
 
 namespace CatFlix.Posts
 {
+	[EnableCors(origins: "*", headers: "*", methods: "*")]
 	public class PostController : ApiController
     {
 		private PostRepository repository = new PostRepository();

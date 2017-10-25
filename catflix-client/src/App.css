@@ -16,3 +16,10 @@
     max-height:100%;
     border-radius: .5em;
 }
+
+.postContainer {
+    padding: 10px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
