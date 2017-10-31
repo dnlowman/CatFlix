@@ -18,6 +18,13 @@ class App extends React.Component{
     componentDidMount() {
         fetch('/api/Post').then(result => {
             result.json().then(json => {
+                json = json.map(json => {
+                    return {
+                        ...json,
+                        CreatedAt: new Date(json.CreatedAt)
+                    };
+                });
+
                 this.setState({
                     ...this.state,
                     posts: json
@@ -66,21 +73,47 @@ class App extends React.Component{
     };
 
     onSubmitClicked = id => {
-        const body = JSON.stringify({
+        const post = {
             Username: this.state.username,
-            CreatedAt: "2017-06-12T16:18:26.0723818+01:00",
+            CreatedAt: new Date(Date.now()),
             Status: this.state.status,
             ImageUrl: this.state.imageUrl,
             AvatarUrl: this.state.avatarUrl
+        };
+
+        console.log(post.CreatedAt);
+
+        const body = JSON.stringify(post);
+        fetch(`http://localhost:54405/api/Post`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body }).then(result => {
+            this.state.posts.push(post);
+            this.setState({
+                ...this.state,
+                username: '',
+                status: '',
+                imageUrl: '',
+                avatarUrl: ''
+            });
         });
-        fetch(`http://localhost:54405/api/Post`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body });
     };
+
 
     render() {
 
         const posts = [];
 
-        this.state.posts.forEach(post => {
+        const sortedPosts = this.state.posts.sort((a, b) => {
+            if (a.CreatedAt > b.CreatedAt) {
+                return -1;
+              }
+            if (a.CreatedAt < b.CreatedAt) {
+                return 1;
+              }
+              // a must be equal to b
+              return 0;
+
+        });
+
+        sortedPosts.forEach(post => {
             posts.push(<Post key={post.Id} id={post.Id} userName={post.Username} imageUrl={post.ImageUrl} likes="1" onDeleteClicked={this.onDeleteClicked} />);
         })
 
@@ -103,7 +136,7 @@ class App extends React.Component{
                     <label>Avatar URL:</label>
                     <input placeholder='http://example.com/my-image.jpeg' value={this.state.avatarUrl} onChange={this.onAvatarURLChanged} />
                   </Form.Field>
-                  <Button type='submit' icon onClick={this.onSubmitClicked}>
+                  <Button disabled={!this.state.username || !this.state.imageUrl} type='submit' icon onClick={this.onSubmitClicked}>
                     Submit
                   </Button>
                 </Form>
