@@ -44,6 +44,21 @@ class App extends React.Component{
         });
     };
 
+    onLikeClicked = id => {
+        const index = this.state.posts.findIndex(post => post.Id === id);
+        this.state.posts[index].Liked = !this.state.posts[index].Liked;
+
+        this.setState({
+            posts: this.state.posts
+        });
+
+        debugger;
+        const body = JSON.stringify(this.state.posts[index]);
+        fetch(`http://localhost:54405/api/Post/`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body}).then(result => {
+            alert('Saved!');
+        });
+    }
+
     onUsernameChanged = event => {
         this.setState({
             ...this.state,
@@ -78,7 +93,8 @@ class App extends React.Component{
             CreatedAt: new Date(Date.now()),
             Status: this.state.status,
             ImageUrl: this.state.imageUrl,
-            AvatarUrl: this.state.avatarUrl
+            AvatarUrl: this.state.avatarUrl,
+            Liked: false
         };
 
         console.log(post.CreatedAt);
@@ -114,7 +130,15 @@ class App extends React.Component{
         });
 
         sortedPosts.forEach(post => {
-            posts.push(<Post key={post.Id} id={post.Id} userName={post.Username} imageUrl={post.ImageUrl} likes="1" onDeleteClicked={this.onDeleteClicked} />);
+            posts.push(<Post key={post.Id}
+                            id={post.Id}
+                            userName={post.Username}
+                            imageUrl={post.ImageUrl}
+                            likes="1"
+                            onDeleteClicked={this.onDeleteClicked}
+                            onLikeClicked={this.onLikeClicked}
+                            isLikeClicked={post.Liked}
+                             />);
         })
 
         return (
